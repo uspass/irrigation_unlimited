@@ -116,7 +116,7 @@ async def async_reload_platform(
             return True
         return False
 
-    platform: EntityPlatform = find_platform(component.hass, BINARY_SENSOR)
+    platform: EntityPlatform = find_platform(component, BINARY_SENSOR)
     if platform is None:
         return False
 
