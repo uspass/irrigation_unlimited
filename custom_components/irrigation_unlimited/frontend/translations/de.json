@@ -166,5 +166,14 @@
   "fld.every_n_days": "Alle N Tage",
   "fld.start_n_days": "Startdatum",
   "err.start_n_days_required": "Startdatum ist erforderlich, wenn 'Alle N Tage' ausgewählt ist",
-  "sec.timing_sched": "Zeitsteuerung (eine Option wählen: Zeit, Sonnenereignis oder Cron)"
+  "sec.timing_sched": "Zeitsteuerung (eine Option wählen: Zeit, Sonnenereignis oder Cron)",
+  "err.entity_id_req": "Schalter-Entität ist erforderlich",
+  "err.entity_id_domain": "Entität muss aus der Domäne switch, light, valve oder cover stammen",
+  "err.entity_id_not_found": "Entität '{eid}' wurde in Home Assistant nicht gefunden",
+  "err.sched_time_req": "Für den Zeitplan muss eine Uhrzeit, ein Sonnenereignis oder ein Cron-Ausdruck angegeben werden",
+  "err.duration_req": "Dauer ist erforderlich",
+  "btn.copy": "Kopieren",
+  "btn.copied": "Kopiert!",
+  "btn.download": "Herunterladen",
+  "err.copy_failed": "Kopieren fehlgeschlagen"
 }
