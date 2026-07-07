@@ -44,9 +44,30 @@ class IrrigationUnlimitedPanel extends HTMLElement {
     this._modal = null;
     this._loading = true;
     this._err = null;
+    // HA Companion app sets narrow=false even on phone (it has native navigation).
+    // Detect it so we can override narrow and keep the hamburger visible.
+    this._isCompanion = !!(
+      window.externalBus ||                                   // Android Companion (older)
+      window.webkit?.messageHandlers?.externalBus ||          // iOS Companion
+      /io\.robbie\.HomeAssistant/.test(navigator.userAgent) // Companion UA bundle ID
+    );
   }
 
   _t(key, vars={}) { return _tr(key, vars); }
+
+  set narrow(val) {
+    // In HA Companion app narrow is always false (native nav), override to true
+    const effective = this._isCompanion ? true : val;
+    if (this._narrow !== effective) {
+      this._narrow = effective;
+      effective ? this.setAttribute("narrow","") : this.removeAttribute("narrow");
+      if (!this._loading) this._draw();
+    }
+  }
+
+  set panel(val) {
+    this._panel = val;  // panel.title etc. — păstrat pentru viitor
+  }
 
   set hass(hass) {
     const first = !this._hass;
@@ -60,6 +81,9 @@ class IrrigationUnlimitedPanel extends HTMLElement {
     } else {
       // Lightweight update (no rebuild) of the "running" indicators on zones
       this._updateRunning();
+      // Keep ha-menu-button in sync with latest hass object
+      const mb = this.shadowRoot?.querySelector("#iu-menu-btn");
+      if (mb) mb.hass = hass;
     }
   }
 
@@ -86,7 +110,13 @@ class IrrigationUnlimitedPanel extends HTMLElement {
 
   connectedCallback() {
     if (this._hass && this._loading) this._load();
+    if (this._isCompanion && !this._narrow) {
+      this._narrow = true;
+      this.setAttribute("narrow", "");
+    }
   }
+
+  disconnectedCallback() {}
 
   async _load() {
     this._loading = true; this._err = null; this._draw();
@@ -113,6 +143,13 @@ class IrrigationUnlimitedPanel extends HTMLElement {
     const wrap = document.createElement("div");
     wrap.className = "wrap";
     wrap.innerHTML = this._html();
+    // Set hass+narrow on ha-menu-button BEFORE connecting to DOM
+    // (avoids null-hass crash on first LitElement render)
+    const menuBtn = wrap.querySelector("#iu-menu-btn");
+    if (menuBtn) {
+      if (this._hass) menuBtn.hass = this._hass;
+      menuBtn.narrow = Boolean(this._narrow);
+    }
     sr.appendChild(wrap);
     if (this._modal) {
       const ov = document.createElement("div");
