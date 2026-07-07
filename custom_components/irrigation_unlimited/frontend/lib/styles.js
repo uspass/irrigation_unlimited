@@ -25,6 +25,9 @@ export const STYLES = `
            padding:12px 18px; margin-bottom:16px; background:var(--card-background-color,#fff);
            border-radius:14px; box-shadow:var(--ha-card-box-shadow,0 2px 8px rgba(0,0,0,.07)); }
 .brand { font-size:1.15rem; font-weight:600; color:var(--primary-color,#1976d2); }
+/* ha-menu-button: hidden by default, visible when panel is in narrow mode */
+ha-menu-button { display:none; }
+:host([narrow]) ha-menu-button { display:inline-flex; }
 .tbr { display:flex; gap:8px; }
 .btn { padding:7px 16px; border-radius:8px; border:none; cursor:pointer;
        font-size:.875rem; font-family:inherit; font-weight:500; transition:filter .15s; }
