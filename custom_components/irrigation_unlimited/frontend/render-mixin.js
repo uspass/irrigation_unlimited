@@ -29,9 +29,10 @@ _html() {
     const ctrls = this._config?.controllers ?? [];
     return `
       <div class="toolbar">
+        <ha-menu-button id="iu-menu-btn"></ha-menu-button>
         <span class="brand">💧 Irrigation Unlimited</span>
         <div class="tbr">
-          <a class="btn btxt" href="/config/integrations/integration/irrigation_unlimited" target="_top">${this._t("btn.integration")}</a>
+          <button class="btn btxt" data-a="nav-integration">${this._t("btn.integration")}</button>
         </div>
       </div>
       ${this._globalConfigRow(this._globalConfig)}
