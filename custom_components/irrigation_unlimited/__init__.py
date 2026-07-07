@@ -176,6 +176,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN]["static_registered"] = True
 
     if not hass.data[DOMAIN].get("panel_registered"):
+        import json as _json  # noqa: PLC0415
+        _ver = _json.loads(
+            (Path(__file__).parent / "manifest.json").read_text()
+        ).get("version", "0")
         async_register_built_in_panel(
             hass,
             component_name="custom",
@@ -187,7 +191,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
                     "name": "irrigation-unlimited-panel",
                     "module_url": (
                         "/irrigation_unlimited_static"
-                        "/irrigation-unlimited-panel.js"
+                        f"/irrigation-unlimited-panel.js?v={_ver}"
                     ),
                     "embed_iframe": False,
                     "trust_external": False,
