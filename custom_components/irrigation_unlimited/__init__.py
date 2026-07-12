@@ -176,10 +176,12 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         hass.data[DOMAIN]["static_registered"] = True
 
     if not hass.data[DOMAIN].get("panel_registered"):
-        import json as _json  # noqa: PLC0415
-        _ver = _json.loads(
-            (Path(__file__).parent / "manifest.json").read_text()
-        ).get("version", "0")
+        # Issue #8: Cache-busting: HA has already loaded the manifest --
+        # use async_get_integration instead of re-reading the file, which
+        # would be a blocking I/O call inside the event loop.
+        from homeassistant.loader import async_get_integration  # noqa: PLC0415
+        _integration = await async_get_integration(hass, DOMAIN)
+        _ver = str(_integration.version or "0")
         async_register_built_in_panel(
             hass,
             component_name="custom",
