@@ -24,17 +24,19 @@ export const renderMixin = {
   },
 
 _html() {
-    if (this._loading) return `<div class="state">${this._t("status.loading")}</div>`;
-    if (this._err)     return `<div class="state err">${esc(this._err)}</div>`;
-    const ctrls = this._config?.controllers ?? [];
-    return `
+    // Native flush header: toolbar sits outside .wrap (full-width, sticky).
+    const toolbar = `
       <div class="toolbar">
         <ha-menu-button id="iu-menu-btn"></ha-menu-button>
         <span class="brand">💧 Irrigation Unlimited</span>
-        <div class="tbr">
-          <button class="btn btxt" data-a="nav-integration">${this._t("btn.integration")}</button>
-        </div>
-      </div>
+        <button class="btn bhdr" data-a="nav-integration">${this._t("btn.integration")}</button>
+      </div>`;
+    if (this._loading)
+      return toolbar + `<div class="wrap"><div class="state">${this._t("status.loading")}</div></div>`;
+    if (this._err)
+      return toolbar + `<div class="wrap"><div class="state err">${esc(this._err)}</div></div>`;
+    const ctrls = this._config?.controllers ?? [];
+    return toolbar + `<div class="wrap">
       ${this._globalConfigRow(this._globalConfig)}
       <div class="sh">
         <span class="st">${this._t("sec.controllers")}</span>
@@ -44,7 +46,8 @@ _html() {
         <div class="empty">
           <div class="eicon">🌱</div>
           <p>${this._t("status.no_ctrl")}</p>
-        </div>`}`;
+        </div>`}
+    </div>`;
   },
 
   _ctrlCard(c) {

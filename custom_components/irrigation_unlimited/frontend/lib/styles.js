@@ -3,6 +3,7 @@
  */
 export const STYLES = `
 :host { display: block; height: 100%; }
+.page { display:flex; flex-direction:column; height:100%; }
 
 /* ── Running indicator (zone active) ──────────────────────────────────────── */
 .run-dot {
@@ -18,15 +19,29 @@ export const STYLES = `
   70%  { box-shadow:0 0 0 6px rgba(76,175,80,0); }
   100% { box-shadow:0 0 0 0 rgba(76,175,80,0); }
 }
-.wrap { min-height:100%; padding:16px; background:var(--primary-background-color,#f0f2f5);
+.wrap { flex:1; overflow-y:auto; padding:16px; background:var(--primary-background-color,#f0f2f5);
         font-family:var(--paper-font-body1_-_font-family,Roboto,sans-serif);
         color:var(--primary-text-color,#1a1a1a); box-sizing:border-box; }
-.toolbar { display:flex; align-items:center; justify-content:space-between;
-           padding:12px 18px; margin-bottom:16px; background:var(--card-background-color,#fff);
-           border-radius:14px; box-shadow:var(--ha-card-box-shadow,0 2px 8px rgba(0,0,0,.07)); }
-.brand { font-size:1.15rem; font-weight:600; color:var(--primary-color,#1976d2); }
+.toolbar {
+  display:flex; align-items:center; gap:12px; flex-shrink:0;
+  height:var(--header-height,56px);
+  padding-left:calc(16px + var(--safe-area-inset-left,0px));
+  padding-right:calc(16px + var(--safe-area-inset-right,0px));
+  padding-top:var(--safe-area-inset-top,0px);
+  box-sizing:content-box;
+  background:var(--app-header-background-color,var(--primary-color,#1976d2));
+  color:var(--app-header-text-color,#fff);
+  border-bottom:var(--app-header-border-bottom,none);
+  font-family:var(--paper-font-body1_-_font-family,Roboto,sans-serif);
+}
+.brand { font-size:1.15rem; font-weight:500; color:inherit; flex:1;
+         overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+/* Header action button: text inherits header color */
+.bhdr { background:transparent; color:inherit; border:none; cursor:pointer;
+        padding:7px 12px; border-radius:8px; font-size:.875rem; font-family:inherit; font-weight:500; }
+.bhdr:hover { background:rgba(255,255,255,0.12); }
 /* ha-menu-button: hidden by default, visible when panel is in narrow mode */
-ha-menu-button { display:none; }
+ha-menu-button { display:none; color:inherit; --mdc-theme-text-primary-on-background:currentColor; }
 :host([narrow]) ha-menu-button { display:inline-flex; }
 .tbr { display:flex; gap:8px; }
 .btn { padding:7px 16px; border-radius:8px; border:none; cursor:pointer;

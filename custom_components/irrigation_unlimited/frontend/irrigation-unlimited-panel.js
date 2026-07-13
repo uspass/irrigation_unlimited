@@ -140,17 +140,19 @@ class IrrigationUnlimitedPanel extends HTMLElement {
     const style = document.createElement("style");
     style.textContent = STYLES;
     sr.appendChild(style);
-    const wrap = document.createElement("div");
-    wrap.className = "wrap";
-    wrap.innerHTML = this._html();
+    // Native flush header: toolbar and content are siblings, not nested.
+    // _html() returns `<div class="toolbar">…</div><div class="wrap">…</div>`
+    const container = document.createElement("div");
+    container.className = "page";
+    container.innerHTML = this._html();
     // Set hass+narrow on ha-menu-button BEFORE connecting to DOM
     // (avoids null-hass crash on first LitElement render)
-    const menuBtn = wrap.querySelector("#iu-menu-btn");
+    const menuBtn = container.querySelector("#iu-menu-btn");
     if (menuBtn) {
       if (this._hass) menuBtn.hass = this._hass;
       menuBtn.narrow = Boolean(this._narrow);
     }
-    sr.appendChild(wrap);
+    sr.appendChild(container);
     if (this._modal) {
       const ov = document.createElement("div");
       ov.className = "ov";
