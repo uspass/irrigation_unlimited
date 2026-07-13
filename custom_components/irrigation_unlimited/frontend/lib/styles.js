@@ -18,13 +18,12 @@ export const STYLES = `
   70%  { box-shadow:0 0 0 6px rgba(76,175,80,0); }
   100% { box-shadow:0 0 0 0 rgba(76,175,80,0); }
 }
-.wrap { min-height:100%; padding:16px; background:var(--primary-background-color,#f0f2f5);
+.wrap { min-height:100%; background:var(--primary-background-color,#f0f2f5);
         font-family:var(--paper-font-body1_-_font-family,Roboto,sans-serif);
         color:var(--primary-text-color,#1a1a1a); box-sizing:border-box; }
 .toolbar { display:flex; align-items:center; justify-content:space-between;
-           padding:12px 18px; margin-bottom:16px; background:var(--card-background-color,#fff);
-           border-radius:14px; box-shadow:var(--ha-card-box-shadow,0 2px 8px rgba(0,0,0,.07)); }
-.brand { font-size:1.15rem; font-weight:600; color:var(--primary-color,#1976d2); }
+            margin-bottom:16px; background:var(--card-background-color,#fff); border-bottom: var(--app-header-border-bottom); box-sizing: border-box; height: var(--header-height); padding-top: var(--safe-area-inset-top); padding-right: var(--safe-area-inset-right);}
+.brand { font-size:1.15rem; font-weight:600; color:var(--primary-color,#1976d2); padding-inline-start: var(--ha-space-6); }
 /* ha-menu-button: hidden by default, visible when panel is in narrow mode */
 ha-menu-button { display:none; }
 :host([narrow]) ha-menu-button { display:inline-flex; }
@@ -45,12 +44,12 @@ ha-menu-button { display:none; }
 .ib.rd:hover { background:#ffebee; }
 .ib.sm { width:24px; height:24px; font-size:12px; }
 .card { background:var(--card-background-color,#fff); border-radius:12px; margin-bottom:12px; overflow:hidden;
-        box-shadow:var(--ha-card-box-shadow,0 2px 8px rgba(0,0,0,.07)); }
+        box-shadow:var(--ha-card-box-shadow,0 2px 8px rgba(0,0,0,.07)); margin: 16px; }
 .ch { display:flex; align-items:center; gap:8px; padding:14px 16px; cursor:pointer; user-select:none; transition:background .15s; }
 .ch:hover { background:var(--secondary-background-color,#f8f8f8); }
 .cb { padding:8px 16px 16px; border-top:1px solid var(--divider-color,#e8e8e8); }
 .sc { background:var(--secondary-background-color,#f8f9fa); border-radius:8px; margin-bottom:8px;
-      overflow:hidden; border:1px solid var(--divider-color,#e8e8e8); }
+      overflow:hidden; border:1px solid var(--divider-color,#e8e8e8); margin: 16px;}
 .sch { display:flex; align-items:center; gap:8px; padding:10px 12px; cursor:pointer; user-select:none; transition:background .15s; }
 .sch:hover { background:var(--divider-color,#e8e8e8); }
 .scb { padding:8px 12px 12px; border-top:1px solid var(--divider-color,#e0e0e0); }
@@ -63,7 +62,7 @@ ha-menu-button { display:none; }
 .bdg.off { background:#fff3e0; color:#e65100; }
 .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
 .chip { font-size:.75rem; padding:3px 9px; border-radius:12px; background:var(--primary-color-light,#e3f2fd); color:var(--primary-color,#1565c0); }
-.sh { display:flex; align-items:center; justify-content:space-between; margin:12px 0 6px; }
+.sh { display:flex; align-items:center; justify-content:space-between; margin: 16px;}
 .st { font-size:.8rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:var(--secondary-text-color,#777); }
 .ssh { display:flex; align-items:center; justify-content:space-between; margin:8px 0 4px;
        font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--secondary-text-color,#999); }
