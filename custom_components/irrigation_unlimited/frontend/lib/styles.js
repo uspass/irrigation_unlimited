@@ -24,11 +24,11 @@ export const STYLES = `
         color:var(--primary-text-color,#1a1a1a); box-sizing:border-box; }
 .toolbar {
   display:flex; align-items:center; gap:12px; flex-shrink:0;
-  height:var(--header-height,56px);
+  height:calc(var(--header-height,56px) + var(--safe-area-inset-top,0px));
   padding-left:calc(16px + var(--safe-area-inset-left,0px));
   padding-right:calc(16px + var(--safe-area-inset-right,0px));
   padding-top:var(--safe-area-inset-top,0px);
-  box-sizing:content-box;
+  box-sizing:border-box;
   background:var(--app-header-background-color,var(--primary-color,#1976d2));
   color:var(--app-header-text-color,#fff);
   border-bottom:var(--app-header-border-bottom,none);
