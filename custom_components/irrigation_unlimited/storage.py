@@ -396,6 +396,8 @@ class IUStore:
                 if sz.get("entity_states") and sz["entity_states"] != "all":
                     sz_obj["entity_states"] = sz["entity_states"]
                 if sz.get("repeat") and int(sz["repeat"]) != 1: sz_obj["repeat"] = sz["repeat"]
+                # enabled=true is the IU default -- omit for clean YAML
+                IUStore._drop_defaults(sz_obj, {"enabled": True})
                 if sz_obj: sz_list.append(sz_obj)
             if sz_list: obj["zones"] = sz_list
             scheds = IUStore._schedules_to_iu(s.get("schedules", []))
