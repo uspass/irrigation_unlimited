@@ -861,13 +861,16 @@ _bind(root) {
             delete payload.cron;
             if (cron) payload.time = {cron};
           }
-          // Require time (or sun/cron → already in payload.time) + duration
+          // Require time (or sun/cron → already in payload.time).
+          // Duration: required only for zone schedules (SCHEDULE_SCHEMA);
+          // sequence schedules take their duration from the sequence itself
+          // (SEQUENCE_SCHEDULE_SCHEMA has it as vol.Optional).
           { const errEl = root.getElementById("modal-err");
             if (!payload.time) {
               if (errEl) errEl.textContent = this._t("err.sched_time_req");
               return;
             }
-            if (!(payload.duration??"").trim()) {
+            if (!m.seqId && !(payload.duration??"").trim()) {
               if (errEl) errEl.textContent = this._t("err.duration_req");
               return;
             }
